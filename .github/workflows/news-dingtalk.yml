@@ -1,0 +1,38 @@
+name: 📢 Send News to DingTalk
+
+on:
+  schedule:
+    # 每2天的上午9点 UTC 运行一次（北京时间17点）
+    - cron: '0 9 */2 * *'
+  workflow_dispatch:  # 手动触发按钮（可选）
+
+jobs:
+  send-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔐 Load environment variables
+        env:
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          DINGTALK_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
+          DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}
+        run: |
+          echo "NEWSAPI_KEY=${NEWSAPI_KEY}" >> .env
+          echo "DINGTALK_WEBHOOK=${DINGTALK_WEBHOOK}" >> .env
+          echo "DINGTALK_SECRET=${DINGTALK_SECRET}" >> .env
+
+      - name: 🚀 Run the script
+        run: python main.py
