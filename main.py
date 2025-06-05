@@ -119,8 +119,8 @@ def send_to_dingtalk(news):
     content_blocks = []
     for i, item in enumerate(news, 1):
         block = f""" {i}. [{item['title']}]({item['url']})
-🌐 来源：{item['source']}{' | 地区：' + item['region'] if item['region'] else ''}  
-🕘 时间：{item['published']}  
+lines.append(🌐 来源：{item['source']}{' | 地区：' + item['region'] if item['region'] else ''})
+lines.append(🕘 时间：{item['published']})
 {f'![图片]({item["image"]})' if item['image'] else ''}
 """
         content_blocks.append(block.strip())
