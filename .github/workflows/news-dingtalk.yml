@@ -2,8 +2,8 @@ name: 📢 Send News to DingTalk
 
 on:
   schedule:
-    # 每2天的上午9点 UTC 运行一次（北京时间17点）
-    - cron: '0 9 */2 * *'
+    # 每2天的上午7点 UTC 运行一次（北京时间15点）
+    - cron: '0 7 */2 * *'
   workflow_dispatch:  # 手动触发按钮（可选）
 
 jobs:
