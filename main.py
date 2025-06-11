@@ -115,9 +115,11 @@ def send_to_dingtalk(news):
     if not news:
         print("⚠️ 没有可推送的新闻")
         return
-
+    # 调试：打印一下 news 列表和长度，确认传入无误
+    print(f"🔍 传入的 news（共 {len(news)} 条）:", news)
+    
     content_blocks = []
-    for i, item in enumerate(news, 1):
+    for i, item in enumerate(news, start=1):
         block = f""" {i}. [{item['title']}]({item['url']})\n
 🌐 来源：{item['source']}{' | 地区：' + item['region'] if item['region'] else ''}
 🕘 时间：{item['published']}
